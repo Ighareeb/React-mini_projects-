@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Tour from './Tour_2';
+import Tour from './Tour';
 
-export default function Tours_2({ tours, removeTour }) {
+export default function Tours({ tours, removeTour }) {
 	return (
 		<section>
 			<div className="title">
@@ -17,7 +17,7 @@ export default function Tours_2({ tours, removeTour }) {
 	);
 }
 
-Tours_2.propTypes = {
+Tours.propTypes = {
 	tours: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.number.isRequired,

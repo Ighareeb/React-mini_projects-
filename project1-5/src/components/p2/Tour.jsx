@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Tour_2({ id, image, info, name, price, removeTour }) {
+export default function Tour({ id, image, info, name, price, removeTour }) {
 	const [readMore, setReadMore] = useState(false);
 
 	return (
@@ -26,7 +26,7 @@ export default function Tour_2({ id, image, info, name, price, removeTour }) {
 	);
 }
 
-Tour_2.propTypes = {
+Tour.propTypes = {
 	id: PropTypes.number.isRequired,
 	image: PropTypes.string.isRequired,
 	info: PropTypes.string.isRequired,
