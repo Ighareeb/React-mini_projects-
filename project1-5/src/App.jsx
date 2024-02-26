@@ -1,22 +1,56 @@
 // // //--------ACCORDION 4--------//
-import React from 'react';
-import Question from './components/p4/Question';
-import data from './assets/data_4';
+import { useState } from 'react';
+import items from './assets/data_5';
+import Menu from './components/p5/Menu';
+import Categories from './components/p5/Categories';
+
+const allCategories = ['all', ...new Set(items.map((item) => item.category))];
 
 export default function App() {
-	const [questions, setQuestions] = React.useState(data);
+	const [menuItems, setMenuItems] = useState(items);
+	const [categories, setCategories] = useState(allCategories);
 
+	const filterItems = (category) => {
+		if (category === 'all') {
+			setMenuItems(items);
+			return;
+		}
+		const newItems = items.filter((item) => item.category === category);
+		setMenuItems(newItems);
+	};
 	return (
-		<main className="container">
-			<h3>Login FAQ</h3>
-			<section className="info">
-				{questions.map((question) => {
-					return <Question key={question.id} {...question} />;
-				})}
+		<main>
+			<section className="menu-section">
+				<div className="title">
+					<h2>Our Menu</h2>
+					<div className="underline"></div>
+				</div>
+				<Categories categories={categories} filterItems={filterItems} />
+				<Menu items={menuItems} />
 			</section>
 		</main>
 	);
 }
+
+// // //--------ACCORDION 4--------//
+// import React from 'react';
+// import Question from './components/p4/Question';
+// import data from './assets/data_4';
+
+// export default function App() {
+// 	const [questions, setQuestions] = React.useState(data);
+
+// 	return (
+// 		<main className="container">
+// 			<h3>Login FAQ</h3>
+// 			<section className="info">
+// 				{questions.map((question) => {
+// 					return <Question key={question.id} {...question} />;
+// 				})}
+// 			</section>
+// 		</main>
+// 	);
+// }
 
 // // //--------REVIEWS APP 3--------//
 // import Review from './components/p3/Review';
