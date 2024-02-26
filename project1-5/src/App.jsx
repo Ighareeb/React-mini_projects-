@@ -1,18 +1,38 @@
-// // //--------REVIEWS APP 3--------//
-import Review from './components/p3/Review';
+// // //--------ACCORDION 4--------//
+import React from 'react';
+import Question from './components/p4/Question';
+import data from './assets/data_4';
 
 export default function App() {
+	const [questions, setQuestions] = React.useState(data);
+
 	return (
-		<main>
-			<section className="container">
-				<div className="title">
-					<h2>Our Reviews</h2>
-				</div>
-				<Review />
+		<main className="container">
+			<h3>Login FAQ</h3>
+			<section className="info">
+				{questions.map((question) => {
+					return <Question key={question.id} {...question} />;
+				})}
 			</section>
 		</main>
 	);
 }
+
+// // //--------REVIEWS APP 3--------//
+// import Review from './components/p3/Review';
+
+// export default function App() {
+// 	return (
+// 		<main>
+// 			<section className="container">
+// 				<div className="title">
+// 					<h2>Our Reviews</h2>
+// 				</div>
+// 				<Review />
+// 			</section>
+// 		</main>
+// 	);
+// }
 
 // // //--------TOURS APP 2--------//
 // import { useState, useEffect } from 'react';
