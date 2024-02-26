@@ -1,45 +1,99 @@
-// //------------------- 7. Lorem Ipsum generator -------------------
+// //------------------- 9. COLOR GENERATOR -------------------
 import { useState } from 'react';
-import data from './assets/data_8';
+import SingleColor from './components/p8/SingleColor';
+import Values from 'values.js';
 
 export default function App() {
-	const [count, setCount] = useState(0);
-	const [text, setText] = useState([]);
+	const [color, setColor] = useState('');
+	const [error, setError] = useState(false);
+	//create new instance of Values object and use 'all' to generate palette tints/shades with 10 steps for range between base color and white (for tints) or black (for shades). --> creates array of color objects representing tint or shade of base color. -- each object included RGB, HSL and hex values + wieght (% of distance from base color to white or black)
+	const [list, setList] = useState(new Values('#f15025').all(10));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let amount = count;
-		if (count <= 0) {
-			amount = 1;
+		try {
+			let colors = new Values(color).all(10);
+			setList(colors);
+		} catch (err) {
+			setError(true);
+			console.log(err);
 		}
-		if (count > 8) {
-			amount = 8;
-		}
-		setText(data.slice(0, amount));
 	};
 	return (
-		<section className="section-center">
-			<h3>Lorem Ipsum Generator</h3>
-			<form onSubmit={handleSubmit} className="lorem-form">
-				<label htmlFor="amount">paragraphs:</label>
-				<input
-					type="number"
-					name="amount"
-					id="amount"
-					value={count}
-					onChange={(e) => setCount(parseInt(e.target.value))}
-				/>
-				<button className="btn">GENERATE</button>
-			</form>
-			<article className="lorem-text">
-				{text.map((item, index) => {
-					return <p key={index}>{item}</p>;
+		<>
+			<section className="container">
+				<h3>Color Generator</h3>
+				<form onSubmit={handleSubmit}>
+					<input
+						type="text"
+						value={color}
+						onChange={(e) => setColor(e.target.value)}
+						placeholder="#f15025"
+						className={`${error ? 'error' : null}`}
+					/>
+					<button className="btn" type="submit">
+						Submit
+					</button>
+				</form>
+			</section>
+			<section className="colors">
+				{list.map((color, index) => {
+					return (
+						<SingleColor
+							key={index}
+							{...color}
+							index={index}
+							hexColor={color.hex}
+						/>
+					);
 				})}
-			</article>
-		</section>
+			</section>
+		</>
 	);
 }
-Get tints and shades of a CSS color
+
+// //------------------- 8. Lorem Ipsum generator -------------------
+// import { useState } from 'react';
+// import data from './assets/data_8';
+
+// export default function App() {
+// 	const [count, setCount] = useState(0);
+// 	const [text, setText] = useState([]);
+
+// 	const handleSubmit = (e) => {
+// 		e.preventDefault();
+// 		let amount = count;
+// 		if (count <= 0) {
+// 			amount = 1;
+// 		}
+// 		if (count > 8) {
+// 			amount = 8;
+// 		}
+// 		setText(data.slice(0, amount));
+// 	};
+// 	return (
+// 		<section className="section-center">
+// 			<h3>Lorem Ipsum Generator</h3>
+// 			<form onSubmit={handleSubmit} className="lorem-form">
+// 				<label htmlFor="amount">paragraphs:</label>
+// 				<input
+// 					type="number"
+// 					name="amount"
+// 					id="amount"
+// 					value={count}
+// 					onChange={(e) => setCount(parseInt(e.target.value))}
+// 				/>
+// 				<button className="btn">GENERATE</button>
+// 			</form>
+// 			<article className="lorem-text">
+// 				{text.map((item, index) => {
+// 					return <p key={index}>{item}</p>;
+// 				})}
+// 			</article>
+// 		</section>
+// 	);
+// }
+
 // //------------------- 7. SLIDER -------------------
 // // note --> components are not actually used...they are alternative code options for the same app.
 // // note2 --> modulo % is used to to check/ensure that index wraps around the last item in array when it reaches index[-1]
